@@ -1,16 +1,16 @@
 package com.company;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Period;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 public class Namer {
-    private static final String endingOfMaleMiddleName = "ович";
-    private static final String endingOfFemaleMiddleName = "овна";
+    private static final String endingOfMaleMiddleName = "ич";
+    private static final String endingOfFemaleMiddleName = "на";
 
     public enum Sex {
         Male,
@@ -99,7 +99,7 @@ public class Namer {
         public void printResult() {
             System.out.println("ФИО: " + getSecondNameAndInitials());
             System.out.println("Пол: " + getRUSex());
-            System.out.println("Возраст: " + getAge());
+            System.out.println("Возраст: " + getAge() + "\n");
         }
     }
 
@@ -119,5 +119,35 @@ public class Namer {
             return Sex.Female;
         }
         return Sex.Other;
+    }
+
+    static public ArrayList<LineNamer> getPeopleFromConsole() {
+        ArrayList<LineNamer> result = new ArrayList<LineNamer>();
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Введите количество строчек:");
+        int num = Integer.parseInt(scanner.nextLine());
+        System.out.println("Введите данные\n[Фамилия] [Имя] [Очество] [Дата рождения]");
+        for (int i = 0; i < num; i++) {
+            result.add(new LineNamer(scanner.nextLine()));
+        }
+        scanner.close();
+        return result;
+    }
+
+    static public ArrayList<LineNamer> getPeopleFromFile(String file_name) {
+        ArrayList<LineNamer> result = new ArrayList<LineNamer>();
+        File file = new File(System.getProperty("user.dir") +
+                "/data/" + file_name);
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                result.add(new LineNamer(scanner.nextLine()));
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
