@@ -10,7 +10,6 @@ public class Main {
     public static void main(String[] args) {
         String line = "Варгин Дмитрий Александрович 11.05.2001";
         Namer.LineNamer lineNamer = new Namer.LineNamer(line);
-        System.out.println(lineNamer.getAge());
-        System.out.println(lineNamer.getSecondNameAndInitials());
+        lineNamer.printResult();
     }
 }

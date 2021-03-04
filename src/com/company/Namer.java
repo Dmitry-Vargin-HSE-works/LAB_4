@@ -89,14 +89,17 @@ public class Namer {
         }
 
         public String getRUSex() {
-            switch (this.sex) {
-                case Male:
-                    return "Муж.";
-                case Female:
-                    return "Жен.";
-                case Other:
-                    return "Трансформер";
-            }
+            return switch (this.sex) {
+                case Male -> "Муж.";
+                case Female -> "Жен.";
+                default -> "Трансформер";
+            };
+        }
+
+        public void printResult() {
+            System.out.println("ФИО: " + getSecondNameAndInitials());
+            System.out.println("Пол: " + getRUSex());
+            System.out.println("Возраст: " + getAge());
         }
     }
 
